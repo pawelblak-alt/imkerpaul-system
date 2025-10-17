@@ -1,1 +1,14 @@
+name: WP Dispatch Receiver
+on:
+  repository_dispatch:
+    types: [wp_post_update]
 
+jobs:
+  log_event:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print payload
+        run: |
+          echo "Title: ${{ github.event.client_payload.title }}"
+          echo "URL:   ${{ github.event.client_payload.url }}"
+          echo "Status:${{ github.event.client_payload.status }}"
