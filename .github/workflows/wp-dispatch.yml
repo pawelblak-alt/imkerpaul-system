@@ -2,6 +2,7 @@ name: WP Dispatch Receiver
 on:
   repository_dispatch:
     types: [wp_post_update]
+  workflow_dispatch:
 
 jobs:
   log_event:
@@ -9,6 +10,7 @@ jobs:
     steps:
       - name: Print payload
         run: |
-          echo "Title: ${{ github.event.client_payload.title }}"
-          echo "URL:   ${{ github.event.client_payload.url }}"
-          echo "Status:${{ github.event.client_payload.status }}"
+          echo "Event:  ${{ github.event_name }}"
+          echo "Title:  ${{ github.event.client_payload.title || 'n/a' }}"
+          echo "URL:    ${{ github.event.client_payload.url   || 'n/a' }}"
+          echo "Status: ${{ github.event.client_payload.status|| 'n/a' }}"
